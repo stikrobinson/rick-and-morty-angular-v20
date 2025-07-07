@@ -1,0 +1,79 @@
+<!-- GUÍA PARA EL ESTUDIANTE: -->
+<div class="character-container">
+
+  <!-- 1. CAMPO DE BÚSQUEDA -->
+  <div class="search-container">
+    <!-- a) Enlaza este input a la propiedad `searchTerm` usando [(ngModel)] -->
+    <!-- b) Llama al método `onSearchKeyup($event)` en el evento (keyup) -->
+    <input 
+      placeholder="Buscar personajes..."
+      /> <!-- ¡TU CÓDIGO AQUÍ! -->
+    
+    <!-- Llama al método `onSearch()` cuando se haga click en este botón -->
+    <button>Buscar</button> <!-- ¡TU CÓDIGO AQUÍ! -->
+  </div>
+
+  <!-- 2. ESTADOS DE CARGA Y ERROR (Control de Flujo con @if) -->
+  
+  <!-- Muestra este bloque si la propiedad `loading` es verdadera -->
+  @if (loading) {
+    <div class="loading-state">
+      <p>Cargando personajes...</p>
+    </div>
+  }
+  
+  <!-- Muestra este bloque si la propiedad `errorMessage` tiene contenido -->
+  @if (errorMessage) {
+    <div class="error-state">
+      <p>{{ errorMessage }}</p>
+    </div>
+  }
+
+  <!-- 3. LISTA DE PERSONAJES (Control de Flujo con @for) -->
+  
+  <!-- Muestra la cuadrícula de personajes solo si no estamos cargando y la señal `hasCharacters()` es verdadera -->
+  @if (!loading && hasCharacters()) {
+    <div class="character-grid">
+      
+      <!-- Itera sobre la señal `characters()` usando el nuevo bloque `@for`. -->
+      <!-- La sintaxis es: @for (character of characters(); track character.id) { ... } -->
+      <!-- ¡TU CÓDIGO AQUÍ! -->
+      
+      <!-- EJEMPLO DE LA ESTRUCTURA DE UNA TARJETA (character-card): -->
+      <!-- 
+      <div class="character-card">
+        <img [src]="character.image" [alt]="character.name" class="character-image">
+        <div class="character-info">
+          <h3>{{ character.name }}</h3>
+          <p>Status: {{ character.status }}</p>
+          <p>Species: {{ character.species }}</p>
+        </div>
+      </div>
+      -->
+      
+    </div>
+  }
+
+  <!-- 4. ESTADO VACÍO -->
+  <!-- Muestra este mensaje si no estamos cargando, no hay errores, y `hasCharacters()` es falso. -->
+  @if (!loading && !errorMessage && !hasCharacters()) {
+    <div class="empty-state">
+      <p>No se encontraron personajes con ese término de búsqueda.</p>
+    </div>
+  }
+  
+</div>
+
+<!-- NOTAS PEDAGÓGICAS:
+
+- CONTROL DE FLUJO CON @if/@for (Angular 17+):
+  Esta es la sintaxis moderna, más limpia y eficiente que las antiguas directivas *ngIf y *ngFor.
+
+- ACCESO A SEÑALES EN EL TEMPLATE:
+  Para leer el valor de una señal en el template, debes llamarla como una función: `characters()` o `hasCharacters()`.
+
+- BINDING DE PROPIEDADES `[src]` vs. INTERPOLACIÓN `{{}}`:
+  Usa `[src]="..."` para propiedades de elementos HTML (como la URL de una imagen).
+  Usa `{{...}}` para mostrar texto dentro de un elemento (como el nombre en un `<h3>`).
+
+-->
