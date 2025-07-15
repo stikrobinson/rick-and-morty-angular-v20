@@ -4,7 +4,7 @@ Este proyecto es una guía de aprendizaje diseñada para practicar conceptos mod
 
 ## Objetivo del Desafío
 
-Tu misión es completar el código de la aplicación siguiendo las pistas y guías dejadas en los comentarios dentro de los archivos fuente. Busca los comentarios que empiezan con `// GUÍA PARA EL ESTUDIANTE:` para saber dónde y qué implementar.
+Tu misión es completar el código de la aplicación siguiendo la guía. Para ello, descarga y abre el archivo "Guía de Práctica Rick and Morty con Angular 20.pdf" en tu navegador para visualizar todo el contenido y seguir las instrucciones.
 
 Al finalizar, tendrás una aplicación funcional que puede:
 -   Mostrar una lista de personajes de Rick and Morty.
