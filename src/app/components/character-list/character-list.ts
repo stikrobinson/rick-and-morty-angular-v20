@@ -1,7 +1,8 @@
 import { Component, OnInit, inject, signal, computed } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { Api } from '../../services/api';
+import { finalize } from 'rxjs'; // Importa finalize
+import { Api } from '../../services/api'; 
 import { Character } from '../../models/character';
 
 @Component({
@@ -16,18 +17,46 @@ import { Character } from '../../models/character';
 })
 export class CharacterListComponent implements OnInit {
 
-  ngOnInit(): void {
+  private api = inject(Api);
 
+  public characters = this.api.characters;
+
+  public searchTerm: string = '';
+  public loading: boolean = false;
+  public errorMessage: string = '';
+
+  public hasCharacters = computed(() => this.characters().length > 0);
+
+  ngOnInit(): void {
+    this.loadInitialCharacters();
   }
 
   loadInitialCharacters(): void {
-    
-    throw new Error('Método no implementado'); 
+    this.loading = true;
+    this.errorMessage = '';
+    this.api.getCharacters()
+      .pipe(
+        finalize(() => this.loading = false)
+      )
+      .subscribe({
+        error: () => {
+          this.errorMessage = 'No se pudieron cargar los personajes. Intenta nuevamente.';
+        }
+      });
   }
 
   onSearch(): void {
-    
-    throw new Error('Método no implementado'); 
+    this.loading = true;
+    this.errorMessage = '';
+    this.api.searchCharacters(this.searchTerm)
+      .pipe(
+        finalize(() => this.loading = false)
+      )
+      .subscribe({
+        error: () => {
+          this.errorMessage = 'No se encontraron personajes con ese nombre.';
+        }
+      });
   }
 
   onSearchKeyup(event: KeyboardEvent): void {
